@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] Camera m_Camera;
-    [SerializeField] Player m_Player;
+    [SerializeField] public Camera m_Camera;
+    [SerializeField] public Player m_Player;
 
     private void Start()
     {

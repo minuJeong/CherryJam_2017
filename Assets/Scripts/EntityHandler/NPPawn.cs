@@ -1,0 +1,143 @@
+﻿
+using System;
+using System.Collections;
+using Underwater.Think;
+using UnityEngine;
+using UnityEngine.AI;
+
+// Non-playable pawn
+public sealed class NPPawn : Pawn
+{
+    public Needs m_Needs = new Needs();
+    public SkillKnowledge m_SkillKnowledge = new SkillKnowledge();
+    public InfoKnowledge m_InfoKnowledge = new InfoKnowledge();
+    // Personality
+    // Interest
+
+    public enum State
+    {
+        IDLE,
+
+        SEARCH_FUZZY_NEED,
+        UNSATISFIABLE_NEED,
+        SEARCH_FUZZY_EXPLORE,
+    }
+
+    private State _state;
+    public State m_State
+    {
+        get
+        {
+            return _state;
+        }
+
+        set
+        {
+            _state = value;
+            OnStateChanged();
+        }
+    }
+
+    private void Start()
+    {
+        m_State = State.IDLE;
+        StartCoroutine(DecayNeeds());
+    }
+
+    private IEnumerator DecayNeeds()
+    {
+        while (true)
+        {
+            yield return null;
+        }
+    }
+
+    private void PickNextTodo()
+    {
+        m_State = State.SEARCH_FUZZY_NEED;
+    }
+
+    private void SearchForFuzzySatisfaction()
+    {
+        // select fuzzy need action
+        Need nextNeed = m_Needs.GetNextNeedFuzzy();
+        Location loc = m_InfoKnowledge.GetLocationToSatisfyNeed(nextNeed);
+        if (loc == null)
+        {
+            m_State = State.UNSATISFIABLE_NEED;
+            return;
+        }
+    }
+
+    private void SearchForFuzzyExplore()
+    {
+        // TODO: add more explore types
+        m_State = State.SEARCH_FUZZY_EXPLORE;
+    }
+
+    private IEnumerator Explore()
+    {
+        Func<Vector3> SetNextExplorePoint = () =>
+        {
+            float angle = UnityEngine.Random.Range(0, Mathf.PI * 2.0F);
+            float distance = UnityEngine.Random.Range(10.0F, 200.0F);
+            return new Vector3(
+                    Mathf.Cos(angle) * distance,
+                    transform.position.y,
+                    Mathf.Sin(angle) * distance
+                );
+        };
+
+        MoveTo(SetNextExplorePoint());
+
+        while (true)
+        {
+            if (m_Agent.remainingDistance != Mathf.Infinity &&
+                m_Agent.remainingDistance == 0 &&
+                m_Agent.pathStatus == NavMeshPathStatus.PathComplete)
+            {
+                MoveTo(SetNextExplorePoint());
+            }
+
+            yield return null;
+        }
+    }
+
+    private void OnStateChanged()
+    {
+        Debug.Log(m_State);
+        switch (m_State)
+        {
+            case State.IDLE:
+                PickNextTodo();
+                break;
+
+            case State.SEARCH_FUZZY_NEED:
+                SearchForFuzzySatisfaction();
+                break;
+
+            case State.UNSATISFIABLE_NEED:
+                SearchForFuzzyExplore();
+                break;
+
+            case State.SEARCH_FUZZY_EXPLORE:
+                Explore();
+                break;
+
+            default:
+                DebugReportUndefinedState();
+                break;
+        }
+    }
+
+    // Utility shortcut
+    private void DebugReportUndefinedState()
+    {
+        Debug.Log(
+            string.Format(
+                "Undefined state: {0}",
+                m_State
+            )
+        );
+    }
+}

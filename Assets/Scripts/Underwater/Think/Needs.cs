@@ -3,30 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Underwater
+namespace Underwater.Think
 {
-    public enum NeedType
-    {
-        Hunger,
-        Sleep,
-        Fun,
-    }
-
     public class Needs
     {
         private Random m_Fuzzy = new Random();
-        private readonly Dictionary<NeedType, double> NeedSatisfaction = new Dictionary<NeedType, double>();
+        private readonly Dictionary<Need, double> NeedSatisfaction = new Dictionary<Need, double>();
 
         public Needs()
         {
             // Initialize satisfaction
-            foreach (NeedType need in Enum.GetValues(typeof(NeedType)))
+            foreach (Need need in Need.Enumerate())
             {
                 NeedSatisfaction.Add(need, 0.5);
             }
         }
 
-        public void SatisfyNeed(NeedType need, double amount)
+        public void SatisfyNeed(Need need, double amount)
         {
             if (NeedSatisfaction.ContainsKey(need))
             {
@@ -34,7 +27,7 @@ namespace Underwater
             }
         }
 
-        public void ConsumeNeed(NeedType need, double amount)
+        public void ConsumeNeed(Need need, double amount)
         {
             if (NeedSatisfaction.ContainsKey(need))
             {
@@ -42,7 +35,7 @@ namespace Underwater
             }
         }
 
-        public NeedType GetNextNeedFuzzy()
+        public Need GetNextNeedFuzzy()
         {
             double needsPriorityCap = NeedSatisfaction
                 .Values

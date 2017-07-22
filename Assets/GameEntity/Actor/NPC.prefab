@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4800703305040298}
-  - component: {fileID: 114363672583818026}
+  - component: {fileID: 114944364871449336}
   - component: {fileID: 195347135866105004}
   m_Layer: 0
   m_Name: NPC
@@ -1992,7 +1992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08a28f654031f44ca3b368bd51b771c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114363672583818026
+--- !u!114 &114944364871449336
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2000,7 +2000,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1239942204659148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 309e5f36b6a885844ab811eb1340b77b, type: 3}
+  m_Script: {fileID: 11500000, guid: 19c583c638389c64d926dd80972de2e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!137 &137776709989736660
