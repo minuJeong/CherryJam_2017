@@ -8,51 +8,33 @@ namespace Underwater.Think
     public class Needs
     {
         private Random m_Fuzzy = new Random();
-        private readonly Dictionary<Need, double> NeedSatisfaction = new Dictionary<Need, double>();
+        public readonly List<Need> NeedsContainer = new List<Need>();
 
         public Needs()
         {
             // Initialize satisfaction
             foreach (Need need in Need.Enumerate())
             {
-                NeedSatisfaction.Add(need, 0.5);
-            }
-        }
-
-        public void SatisfyNeed(Need need, double amount)
-        {
-            if (NeedSatisfaction.ContainsKey(need))
-            {
-                NeedSatisfaction[need] += amount;
-            }
-        }
-
-        public void ConsumeNeed(Need need, double amount)
-        {
-            if (NeedSatisfaction.ContainsKey(need))
-            {
-                NeedSatisfaction[need] -= amount;
+                NeedsContainer.Add(need);
             }
         }
 
         public Need GetNextNeedFuzzy()
         {
-            double needsPriorityCap = NeedSatisfaction
-                .Values
-                .ToList()
-                .ConvertAll((satisfaction) => 1.0 - satisfaction)
-                .ConvertAll((needy) => needy * needy)
+            double needsPriorityCap = NeedsContainer
+                .ConvertAll((need) => 1.0 - need.Satisfaction)
+                .ConvertAll((urgency) => urgency * urgency)
                 .Sum();
 
             double selectedFuz = m_Fuzzy.NextDouble() * needsPriorityCap;
 
-            var e = NeedSatisfaction.GetEnumerator();
+            var e = NeedsContainer.GetEnumerator();
             while (e.MoveNext())
             {
-                selectedFuz -= e.Current.Value;
+                selectedFuz -= e.Current.Satisfaction;
                 if (selectedFuz <= 0)
                 {
-                    return e.Current.Key;
+                    return e.Current;
                 }
             }
 

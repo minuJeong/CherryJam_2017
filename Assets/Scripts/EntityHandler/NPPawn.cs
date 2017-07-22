@@ -49,6 +49,11 @@ public sealed class NPPawn : Pawn
         while (true)
         {
             yield return null;
+
+            m_Needs.NeedsContainer.ForEach((need) =>
+            {
+                need.Consume(10);
+            });
         }
     }
 
