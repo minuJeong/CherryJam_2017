@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Target: {fileID: 0}
+  m_FollowUpFactor: 0.03
 --- !u!114 &114939397650239330
 MonoBehaviour:
   m_ObjectHideFlags: 1
