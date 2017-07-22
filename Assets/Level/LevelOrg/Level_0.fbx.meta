@@ -16,6 +16,19 @@ ModelImporter:
     100016: transform3
     100018: transform4
     100020: Platform
+    100022: pCylinder1
+    100024: pCylinder2
+    100026: polySurface1
+    100028: polySurface2
+    100030: polySurface3
+    100032: polySurface4
+    100034: polySurface5
+    100036: polySurface6
+    100038: Tree
+    100040: treeLeaves
+    100042: TreeStem1
+    100044: pasted__treeLeaves
+    100046: pasted__TreeStem1
     400000: //RootNode
     400002: pCube1
     400004: pCube2
@@ -27,23 +40,66 @@ ModelImporter:
     400016: transform3
     400018: transform4
     400020: Platform
+    400022: pCylinder1
+    400024: pCylinder2
+    400026: polySurface1
+    400028: polySurface2
+    400030: polySurface3
+    400032: polySurface4
+    400034: polySurface5
+    400036: polySurface6
+    400038: Tree
+    400040: treeLeaves
+    400042: TreeStem1
+    400044: pasted__treeLeaves
+    400046: pasted__TreeStem1
     2300000: pCube1
     2300002: pCube2
     2300004: pCube3
     2300006: pCube5
     2300008: Platform
     2300010: //RootNode
+    2300012: polySurface1
+    2300014: polySurface2
+    2300016: polySurface3
+    2300018: polySurface4
+    2300020: polySurface5
+    2300022: polySurface6
+    2300024: treeLeaves
+    2300026: TreeStem1
+    2300028: pasted__treeLeaves
+    2300030: pasted__TreeStem1
     3300000: pCube1
     3300002: pCube2
     3300004: pCube3
     3300006: pCube5
     3300008: Platform
     3300010: //RootNode
+    3300012: polySurface1
+    3300014: polySurface2
+    3300016: polySurface3
+    3300018: polySurface4
+    3300020: polySurface5
+    3300022: polySurface6
+    3300024: treeLeaves
+    3300026: TreeStem1
+    3300028: pasted__treeLeaves
+    3300030: pasted__TreeStem1
     4300000: pCube1
     4300002: pCube2
     4300004: pCube3
     4300006: pCube5
     4300008: Platform
+    4300010: polySurface1
+    4300012: polySurface2
+    4300014: polySurface3
+    4300016: polySurface4
+    4300018: polySurface5
+    4300020: polySurface6
+    4300022: TreeStem1
+    4300024: treeLeaves
+    4300026: pasted__treeLeaves
+    4300028: pasted__TreeStem1
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -71,7 +127,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 200
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
