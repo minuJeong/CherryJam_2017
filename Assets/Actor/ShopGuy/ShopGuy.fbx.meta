@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b5bf7003e4ab7494e82de93566f72272
-timeCreated: 1500828072
+timeCreated: 1500829730
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -138,8 +138,8 @@ ModelImporter:
     400128: Character1_Spine2
     400130: //RootNode
     4300000: Body
-    7400000: Walk
-    7400002: Idle
+    7400000: Idle
+    7400002: Walk
     9500000: //RootNode
     13700000: Body
   materials:
@@ -166,10 +166,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walk
+      name: Idle
       takeName: Take 001
-      firstFrame: 1
-      lastFrame: 60
+      firstFrame: 61
+      lastFrame: 150
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -326,10 +326,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Idle
+      name: Walk
       takeName: Take 001
-      firstFrame: 61
-      lastFrame: 150
+      firstFrame: 1
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

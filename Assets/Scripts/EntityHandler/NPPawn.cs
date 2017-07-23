@@ -43,6 +43,7 @@ public sealed class NPPawn : Pawn
 
     private void Start()
     {
+        OnStateChanged();
         StartCoroutine(DecayNeeds());
     }
 
@@ -113,6 +114,21 @@ public sealed class NPPawn : Pawn
         }
     }
 
+    private IEnumerator StandStill()
+    {
+        Vector3 targetPos = transform.position;
+        while (true)
+        {
+            yield return null;
+
+            float delta = (targetPos - transform.position).sqrMagnitude;
+            if (delta > 0.1F)
+            {
+                MoveTo(targetPos);
+            }
+        }
+    }
+
     private void OnStateChanged()
     {
         switch (m_State)
@@ -137,6 +153,7 @@ public sealed class NPPawn : Pawn
                 break;
 
             case State.STAND_STILL_FOREVER:
+                MoveTo(transform.position);
                 break;
 
             default:
