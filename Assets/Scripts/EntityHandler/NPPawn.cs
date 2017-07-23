@@ -23,9 +23,10 @@ public sealed class NPPawn : Pawn
         UNSATISFIABLE_NEED,
         SEARCH_FUZZY_EXPLORE,
         PURSUE_NEED,
+        STAND_STILL_FOREVER,
     }
 
-    private State _state;
+    [SerializeField] private State _state;
     public State m_State
     {
         get
@@ -42,7 +43,6 @@ public sealed class NPPawn : Pawn
 
     private void Start()
     {
-        m_State = State.IDLE;
         StartCoroutine(DecayNeeds());
     }
 
@@ -134,6 +134,9 @@ public sealed class NPPawn : Pawn
 
             case State.SEARCH_FUZZY_EXPLORE:
                 StartCoroutine(Explore());
+                break;
+
+            case State.STAND_STILL_FOREVER:
                 break;
 
             default:
