@@ -29,6 +29,10 @@ ModelImporter:
     100042: TreeStem1
     100044: pasted__treeLeaves
     100046: pasted__TreeStem1
+    100048: BrickRoad1
+    100050: Dirt1
+    100052: notwalkable
+    100054: walkable
     400000: //RootNode
     400002: pCube1
     400004: pCube2
@@ -53,6 +57,10 @@ ModelImporter:
     400042: TreeStem1
     400044: pasted__treeLeaves
     400046: pasted__TreeStem1
+    400048: BrickRoad1
+    400050: Dirt1
+    400052: notwalkable
+    400054: walkable
     2300000: pCube1
     2300002: pCube2
     2300004: pCube3
@@ -69,6 +77,10 @@ ModelImporter:
     2300026: TreeStem1
     2300028: pasted__treeLeaves
     2300030: pasted__TreeStem1
+    2300032: BrickRoad1
+    2300034: Dirt1
+    2300036: notwalkable
+    2300038: walkable
     3300000: pCube1
     3300002: pCube2
     3300004: pCube3
@@ -85,6 +97,10 @@ ModelImporter:
     3300026: TreeStem1
     3300028: pasted__treeLeaves
     3300030: pasted__TreeStem1
+    3300032: BrickRoad1
+    3300034: Dirt1
+    3300036: notwalkable
+    3300038: walkable
     4300000: pCube1
     4300002: pCube2
     4300004: pCube3
@@ -100,6 +116,10 @@ ModelImporter:
     4300024: treeLeaves
     4300026: pasted__treeLeaves
     4300028: pasted__TreeStem1
+    4300030: BrickRoad1
+    4300032: Dirt1
+    4300034: walkable
+    4300036: notwalkable
     9500000: //RootNode
   materials:
     importMaterials: 1

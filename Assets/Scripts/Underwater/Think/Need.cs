@@ -49,10 +49,8 @@ namespace Underwater.Think
             );
         }
 
-        private Guid ID;
         private Need()
         {
-            ID = Guid.NewGuid();
             Satisfaction = 0.5;
         }
 
@@ -79,7 +77,7 @@ namespace Underwater.Think
 
         public void Satisfy(int score)
         {
-            Satisfy(score / Scale);
+            Satisfy((double)(score / Scale));
         }
 
         public void Consume(double amount)
@@ -89,7 +87,7 @@ namespace Underwater.Think
 
         public void Consume(int score)
         {
-            Consume(score / Scale);
+            Consume((double)(score / Scale));
         }
     }
 }

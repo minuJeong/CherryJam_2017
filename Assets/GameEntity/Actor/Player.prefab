@@ -1344,6 +1344,7 @@ GameObject:
   - component: {fileID: 4372432517298358}
   - component: {fileID: 114983897875231606}
   - component: {fileID: 195157635299647458}
+  - component: {fileID: 136734050738499264}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2712,6 +2713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f84ad9755f18141866e027684358fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OverrideRadius: 1.5
 --- !u!114 &114991758346258486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2723,6 +2725,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08a28f654031f44ca3b368bd51b771c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &136734050738499264
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1969789769603896}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!137 &137088641244755500
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -2793,7 +2808,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.4
-  m_Speed: 4
+  m_Speed: 6
   m_Acceleration: 50
   avoidancePriority: 1
   m_AngularSpeed: 1200

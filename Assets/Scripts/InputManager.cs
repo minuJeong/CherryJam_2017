@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -28,13 +29,11 @@ public class InputManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            var walkable = hit.collider.GetComponent<LevelWalkable>();
-            if (walkable == null)
-            {
-                return;
-            }
-
-            m_Player.MoveTo(hit.point);
+            hit.collider.GetComponents<Interactable>()
+                .ToList()
+                .ForEach((interact) => interact.Interact(m_Player, hit.point));
         }
     }
+
+
 }

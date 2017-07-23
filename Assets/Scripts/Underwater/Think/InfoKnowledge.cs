@@ -4,24 +4,43 @@ namespace Underwater.Think
 {
     public class InfoKnowledge
     {
-        private readonly Dictionary<Location, Need> NeedMap = new Dictionary<Location, Need>();
+        private readonly Dictionary<Need, List<Location>> NeedMap = new Dictionary<Need, List<Location>>();
 
-        public Location GetLocationToSatisfyNeed(Need need)
+        public List<Location> GetLocationToSatisfyNeed(Need need)
         {
             var e = NeedMap.GetEnumerator();
             while (e.MoveNext())
             {
-                if (e.Current.Value == need)
+                if (e.Current.Key == need)
                 {
-                    return e.Current.Key;
+                    return e.Current.Value;
                 }
             }
-            return null;
+            return new List<Location>();
         }
 
         public void LearnNeedLocation(Location location, Need need)
         {
-            NeedMap.Add(location, need);
+            if (!NeedMap.ContainsKey(need))
+            {
+                NeedMap.Add(need, new List<Location>());
+            }
+
+            if (!NeedMap[need].Contains(location))
+            {
+                NeedMap[need].Add(location);
+            }
+        }
+
+        public void ForgetNeedLocation(Location location, Need need)
+        {
+            if (NeedMap.ContainsKey(need))
+            {
+                if (NeedMap[need].Contains(location))
+                {
+                    NeedMap[need].Remove(location);
+                }
+            }
         }
     }
 }

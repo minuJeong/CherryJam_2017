@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: 99a83f4d65fc17f4f9b8081a40c5f374
-timeCreated: 1500715327
+guid: 6f3f38737e81d3f4cb7943c4db6ba32f
+timeCreated: 1500756518
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: leaves
-    100002: steam
+    100002: stem
     100004: //RootNode
     400000: leaves
-    400002: steam
+    400002: stem
     400004: //RootNode
     2300000: leaves
-    2300002: steam
+    2300002: stem
     3300000: leaves
-    3300002: steam
+    3300002: stem
     4300000: leaves
-    4300002: steam
+    4300002: stem
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -44,7 +44,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 200
+    globalScale: 120
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

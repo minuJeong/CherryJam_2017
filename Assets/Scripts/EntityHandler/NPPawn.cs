@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Underwater.Think;
 using UnityEngine;
 using UnityEngine.AI;
@@ -21,6 +22,7 @@ public sealed class NPPawn : Pawn
         SEARCH_FUZZY_NEED,
         UNSATISFIABLE_NEED,
         SEARCH_FUZZY_EXPLORE,
+        PURSUE_NEED,
     }
 
     private State _state;
@@ -66,11 +68,14 @@ public sealed class NPPawn : Pawn
     {
         // select fuzzy need action
         Need nextNeed = m_Needs.GetNextNeedFuzzy();
-        Location loc = m_InfoKnowledge.GetLocationToSatisfyNeed(nextNeed);
-        if (loc == null)
+        List<Location> locations = m_InfoKnowledge.GetLocationToSatisfyNeed(nextNeed);
+        if (locations.Count == 0)
         {
             m_State = State.UNSATISFIABLE_NEED;
-            return;
+        }
+        else
+        {
+            m_State = State.PURSUE_NEED;
         }
     }
 
@@ -85,15 +90,15 @@ public sealed class NPPawn : Pawn
         Func<Vector3> SetNextExplorePoint = () =>
         {
             float angle = UnityEngine.Random.Range(0, Mathf.PI * 2.0F);
-            float distance = UnityEngine.Random.Range(10.0F, 200.0F);
-            return new Vector3(
+            float distance = UnityEngine.Random.Range(2.0F, 20.0F);
+            return transform.position + new Vector3(
                     Mathf.Cos(angle) * distance,
                     transform.position.y,
                     Mathf.Sin(angle) * distance
                 );
         };
 
-        MoveTo(SetNextExplorePoint());
+        MoveTo(SetNextExplorePoint(), false);
 
         while (true)
         {
@@ -101,7 +106,7 @@ public sealed class NPPawn : Pawn
                 m_Agent.remainingDistance == 0 &&
                 m_Agent.pathStatus == NavMeshPathStatus.PathComplete)
             {
-                MoveTo(SetNextExplorePoint());
+                MoveTo(SetNextExplorePoint(), false);
             }
 
             yield return null;
@@ -110,7 +115,6 @@ public sealed class NPPawn : Pawn
 
     private void OnStateChanged()
     {
-        Debug.Log(m_State);
         switch (m_State)
         {
             case State.IDLE:
@@ -125,8 +129,11 @@ public sealed class NPPawn : Pawn
                 SearchForFuzzyExplore();
                 break;
 
+            case State.PURSUE_NEED:
+                break;
+
             case State.SEARCH_FUZZY_EXPLORE:
-                Explore();
+                StartCoroutine(Explore());
                 break;
 
             default:
@@ -144,5 +151,14 @@ public sealed class NPPawn : Pawn
                 m_State
             )
         );
+    }
+
+    public override void Interact(Interactable interactee, Vector3 contact)
+    {
+        var player = interactee as Player;
+        if (player != null)
+        {
+            player.MoveTo(this, true);
+        }
     }
 }

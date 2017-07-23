@@ -1,16 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelWalkable : MonoBehaviour {
+/// <summary>
+/// Walkable mesh
+/// </summary>
+[RequireComponent(typeof(MeshCollider))]
+public class LevelWalkable : Interactable
+{
+    public override float GetRadius()
+    {
+        return 0.0F;
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public override void Interact(Interactable interactee, Vector3 contact)
+    {
+        var pawn = interactee as Pawn;
+        if (pawn != null)
+        {
+            pawn.MoveTo(contact, true);
+        }
+    }
 }
