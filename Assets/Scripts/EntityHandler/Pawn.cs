@@ -35,6 +35,8 @@ public abstract class Pawn : Interactable
                m_Agent.pathStatus == NavMeshPathStatus.PathComplete;
     }
 
+    public event Action OnWaypointReset;
+
     private Queue<Waypoint> _waypoint = new Queue<Waypoint>();
     private Coroutine _waypointReader = null;
     private bool _waypointReaderRunning = false;
@@ -97,11 +99,21 @@ public abstract class Pawn : Interactable
         _waypointReaderRunning = false;
     }
 
+    public void ClearMove()
+    {
+        if (OnWaypointReset != null)
+        {
+            OnWaypointReset.Invoke();
+        }
+
+        _waypoint.Clear();
+    }
+
     public void MoveTo(Vector3 pos, bool cancelPreviousMove = true)
     {
         if (cancelPreviousMove)
         {
-            _waypoint.Clear();
+            ClearMove();
         }
 
         _waypoint.Enqueue(new Waypoint()
@@ -117,11 +129,11 @@ public abstract class Pawn : Interactable
         _waypointReader = StartCoroutine(ReadWaypoint());
     }
 
-    public void MoveTo(Interactable target, bool cancelPreviousMove = true)
+    public void StartFollowTarget(Interactable target, bool cancelPreviousMove = true)
     {
         if (cancelPreviousMove)
         {
-            _waypoint.Clear();
+            ClearMove();
         }
 
         _waypoint.Enqueue(new Waypoint()

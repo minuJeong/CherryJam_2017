@@ -178,7 +178,7 @@ public sealed class NPPawn : Pawn
         var player = interactee as Player;
         if (player != null)
         {
-            player.MoveTo(this, true);
+            player.StartFollowTarget(this, true);
         }
     }
 }
