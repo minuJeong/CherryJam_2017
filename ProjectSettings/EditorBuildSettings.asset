@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Levels/Floor_1.unity
     guid: 6d1f66d88e404204eac326fa8e7a5e0e
+  - enabled: 1
+    path: Assets/Scene/System.unity
+    guid: 00000000000000000000000000000000

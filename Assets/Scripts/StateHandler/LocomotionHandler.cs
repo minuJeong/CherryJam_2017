@@ -18,7 +18,7 @@ public class LocomotionHandler : MonoBehaviour
     void Update()
     {
         Vector3 delta = transform.position - _prevPos;
-        _anim.SetFloat("MoveSpeed", delta.magnitude);
+        _anim.SetFloat("MoveSpeed", delta.magnitude / Time.deltaTime);
         _prevPos = transform.position;
     }
 }

@@ -40,6 +40,12 @@ public class Beacon : Interactable
         switch (m_Interaction)
         {
             case BeaconInteraction.TO_LEVEL:
+                if (_pollingPawnGetClose != null)
+                {
+                    StopCoroutine(_pollingPawnGetClose);
+                }
+                _pollingPawnGetClose = null;
+
                 SceneManager.LoadScene(m_Parameter);
                 break;
         }
