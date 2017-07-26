@@ -22,9 +22,21 @@ public class Beacon : Interactable
             return;
         }
 
-        pawn.MoveTo(transform.position);
-        pawn.OnWaypointReset += Pawn_OnWaypointReset;
-        _pollingPawnGetClose = StartCoroutine(PollingGetClose(pawn.gameObject));
+        if (!IsClose(pawn.gameObject))
+        {
+            pawn.MoveTo(transform.position);
+            pawn.OnWaypointReset += Pawn_OnWaypointReset;
+            _pollingPawnGetClose = StartCoroutine(PollingGetClose(pawn.gameObject));
+        }
+        else
+        {
+            OnGetClose();
+        }
+    }
+
+    private bool IsClose(GameObject target)
+    {
+        return (transform.position - target.transform.position).magnitude < 1.0F;
     }
 
     private void Pawn_OnWaypointReset()
@@ -57,7 +69,7 @@ public class Beacon : Interactable
         {
             yield return null;
 
-            if ((transform.position - target.transform.position).magnitude < 0.5F)
+            if (IsClose(target))
             {
                 OnGetClose();
                 break;

@@ -10,6 +10,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class Pawn : Interactable
 {
+    [SerializeField] public bool IsDead = false;
+
     public override float GetRadius()
     {
         return m_Agent.radius;
@@ -109,18 +111,9 @@ public abstract class Pawn : Interactable
         _waypoint.Clear();
     }
 
-    public void MoveTo(Vector3 pos, bool cancelPreviousMove = true)
+    private void AddWaypoint(Waypoint waypoint)
     {
-        if (cancelPreviousMove)
-        {
-            ClearMove();
-        }
-
-        _waypoint.Enqueue(new Waypoint()
-        {
-            m_WaypointType = Waypoint.WaypointType.Position,
-            m_TargetPos = pos
-        });
+        _waypoint.Enqueue(waypoint);
 
         if (_waypointReaderRunning && _waypointReader != null)
         {
@@ -129,28 +122,58 @@ public abstract class Pawn : Interactable
         _waypointReader = StartCoroutine(ReadWaypoint());
     }
 
-    public void StartFollowTarget(Interactable target, bool cancelPreviousMove = true)
+    public void MoveTo(Vector3 pos, bool cancelPreviousMove = true)
     {
+        if (IsDead)
+        {
+            return;
+        }
+
         if (cancelPreviousMove)
         {
             ClearMove();
         }
 
-        _waypoint.Enqueue(new Waypoint()
+        AddWaypoint(new Waypoint()
+        {
+            m_WaypointType = Waypoint.WaypointType.Position,
+            m_TargetPos = pos
+        });
+    }
+
+    public void StartFollowTarget(Interactable target, bool cancelPreviousMove = true)
+    {
+        if (IsDead)
+        {
+            return;
+        }
+
+        if (cancelPreviousMove)
+        {
+            ClearMove();
+        }
+
+        AddWaypoint(new Waypoint()
         {
             m_WaypointType = Waypoint.WaypointType.Target,
             m_TargetObject = target
         });
-
-        if (_waypointReaderRunning && _waypointReader != null)
-        {
-            StopCoroutine(_waypointReader);
-        }
-        _waypointReader = StartCoroutine(ReadWaypoint());
     }
 
     public override void Interact(Interactable interactee, Vector3 contact)
     {
         throw new NotImplementedException();
+    }
+
+    public virtual void Die()
+    {
+        if (_waypointReader != null)
+        {
+            StopCoroutine(_waypointReader);
+            _waypointReader = null;
+        }
+        _waypointReaderRunning = false;
+        _waypoint.Clear();
+        IsDead = true;
     }
 }

@@ -16,7 +16,9 @@ public class Level : MonoBehaviour
         // Simple Level Replacement
         if (Player.Instance != null)
         {
+            Player.Instance.m_Agent.enabled = false;
             Player.Instance.transform.position = m_StartLocation.transform.position;
+            Player.Instance.m_Agent.enabled = true;
             Player.Instance.MoveTo(Player.Instance.transform.position, true);
         }
 
