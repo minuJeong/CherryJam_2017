@@ -13,17 +13,23 @@ public class Level : MonoBehaviour
     {
         Debug.Assert(m_StartLocation != null);
 
+        // Simple Level Replacement
         if (Player.Instance != null)
         {
             Player.Instance.transform.position = m_StartLocation.transform.position;
             Player.Instance.MoveTo(Player.Instance.transform.position, true);
         }
+
+        // Load from start
         else
         {
+            // On fitst level
             if (m_InitializeSystem)
             {
                 SceneManager.LoadScene("System", LoadSceneMode.Additive);
             }
+
+            // Conveniently start game from the first level
             else
             {
                 SceneManager.LoadScene("Game");
