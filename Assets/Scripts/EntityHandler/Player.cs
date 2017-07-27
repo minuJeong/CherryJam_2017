@@ -25,11 +25,15 @@ public sealed class Player : Pawn
 
     public override void Die()
     {
+        if (IsDead)
+        {
+            return;
+        }
+        
         base.Die();
 
         m_Agent.enabled = false;
         transform.rotation *= Quaternion.Euler(-90, 0, 0);
-
         UIManager.Instance.ShowDeadMessage();
     }
 }

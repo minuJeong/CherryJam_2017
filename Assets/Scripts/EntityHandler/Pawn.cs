@@ -167,6 +167,11 @@ public abstract class Pawn : Interactable
 
     public virtual void Die()
     {
+        if (IsDead)
+        {
+            return;
+        }
+
         if (_waypointReader != null)
         {
             StopCoroutine(_waypointReader);

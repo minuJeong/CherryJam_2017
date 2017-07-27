@@ -24,6 +24,8 @@ public sealed class NPPawn : Pawn
         SEARCH_FUZZY_EXPLORE,
         PURSUE_NEED,
         STAND_STILL_FOREVER,
+
+        DEAD
     }
 
     [SerializeField] private State _state;
@@ -101,7 +103,7 @@ public sealed class NPPawn : Pawn
 
         MoveTo(SetNextExplorePoint(), false);
 
-        while (true)
+        while (!IsDead)
         {
             if (m_Agent.remainingDistance != Mathf.Infinity &&
                 m_Agent.remainingDistance == 0 &&
@@ -156,6 +158,9 @@ public sealed class NPPawn : Pawn
                 MoveTo(transform.position);
                 break;
 
+            case State.DEAD:
+                break;
+
             default:
                 DebugReportUndefinedState();
                 break;
@@ -184,9 +189,15 @@ public sealed class NPPawn : Pawn
 
     public override void Die()
     {
+        if (IsDead)
+        {
+            return;
+        }
+
         base.Die();
 
         m_Agent.enabled = false;
         transform.rotation *= Quaternion.Euler(-90, 0, 0);
+        m_State = State.DEAD;
     }
 }
